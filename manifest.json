@@ -1,0 +1,13 @@
+{
+	"manifest_version": 2,
+	"name": "Intention Setter",
+	"version": "0.0.1",
+
+	"description": "A Google Chrome extension that prompts you with 'Which is your intention for today'",
+	"author": "Bernat Fortet Unanue",
+
+	"chrome_url_overrides" : {
+		"newtab2": ".tmp/index.html"
+	}
+}
+
