@@ -14,8 +14,6 @@ class @Controls
 		this.icon = $('#AddImageIcon')
 		this.button = $('#AddImageButton')
 
-		this.appear()
-
 		this.setListeners()
 
 	appear: -> 
@@ -50,7 +48,7 @@ class @Controls
 		)
 
 		this.input.on('blur', =>
-			if( this.state == 'click')
+			if( this.state == 'paste')
 				$('#AddImageText').text("Use image from url")
 				this.state = "click"
 		)

@@ -7,7 +7,11 @@
 	"author": "Bernat Fortet Unanue",
 
 	"chrome_url_overrides" : {
-		"newtab2": ".tmp/index.html"
-	}
+		"newtab": "dist/index.html"
+	},
+	"content_security_policy": "script-src 'self' https://api.tumblr.com; object-src 'self'",
+	"permissions": [
+		"storage"
+	]
 }
 

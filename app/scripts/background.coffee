@@ -51,5 +51,5 @@ class @Background
 		this.setBackground( this.previousImageUrl )
 
 	getTumblrUrl: ->
-		url = "http://api.tumblr.com/v2/blog/#{this.config.tumblr.baseHostname}/posts/photo?api_key=#{this.config.tumblr.apiKey}&offset=30"
+		url = "https://api.tumblr.com/v2/blog/#{this.config.tumblr.baseHostname}/posts/photo?api_key=#{this.config.tumblr.apiKey}&offset=30"
 		return url

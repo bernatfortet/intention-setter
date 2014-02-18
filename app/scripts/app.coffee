@@ -1,9 +1,12 @@
 class @App
-	debug: true
+	debug: false
 
 	constructor: ->
 		this.background = new Background( )
 		this.db = new Database()
+		this.question = new Question()
+		this.controls = new Controls()
+		this.intention = new Intention()
 
 	init: ->
 		this.setListeners()
@@ -13,15 +16,12 @@ class @App
 
 		this.db.checkIfThereIsIntentionAndGetIt()
 
-		setTimeout( this.showElements, 1500 )
+		setTimeout( this.showElements, 0 )
 
 	showElements: =>
-		this.question = new Question()
-		this.controls = new Controls()
-		this.intention = new Intention()
-
-	setIntention: ( intention ) ->
-		this.intention.setIntention( intention )
+		this.question.appear()
+		this.controls.appear()
+		this.intention .appear()
 
 	setListeners: ->
 

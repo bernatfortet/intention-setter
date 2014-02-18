@@ -22,21 +22,25 @@ class @Database
 			this.getIntentions()
 
 	getIntentions: -> 
-		this.mongoDB.listDocuments "intentions", "intentions", { s:'{"_id": -1}', l: '1'}, (intentions) =>
-			console.log "Intentions List: ", data
+		this.mongoDB.listDocuments "intentions", "intentions", { s:'{"_id": -1}' }, (intentions) => #, l: '1'
+
+			this.intentionsList = intentions
 
 			this.listLoaded = true
 
 			for key, intention of intentions
-				this.parseIntention( intention )
+				if( key == 0)
+					this.parseIntention( intention )
 
 	parseIntention: ( intention ) ->
 		if( this.dateIsBetweenTodaysAwakeHours( intention.time ) )
 			this.setIntention( intention )
 
 
+
+
 	setIntention: ( intention ) ->
-		app.setIntention( intention )
+		app.intention.setIntention( intention )
 		this.currentIntention = intention
 
 	dateIsBetweenTodaysAwakeHours: ( date ) ->

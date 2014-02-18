@@ -1,6 +1,6 @@
 class @Intention
 
-	intentionSetDivMarginTop: 40
+	intentionSetDivMarginTop: 140
 
 	string: null
 
@@ -16,10 +16,7 @@ class @Intention
 
 		this.setListeners()
 
-		this.appear()
-
 	appear: ->
-
 		this.el.animate(
 			opacity: "1"
 		,
@@ -36,21 +33,20 @@ class @Intention
 			this.captureIntention()
 		));
 
-		this.input.on('keydown', =>
-			app.question.onStartWriting()
-		)
-
 		this.input.on('keyup', =>
+			if( this.input.val().length > 0 )
+				app.question.onStartWriting()
 			if( this.input.val() == '')
 				app.question.onNoTextOnIntention()
 		)
 
 	setIntention: ( intention ) ->
-		console.log intention
 		this.input.val( intention.string )
 		this.input.hide()
 		this.text.text( intention.string )
 		this.text.show()
+
+		app.question.onIntentionSet()
 
 		intentionSetDivPosition = $('#IntentionText').offset().top - this.intentionSetDivMarginTop
 

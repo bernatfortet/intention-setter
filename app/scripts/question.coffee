@@ -8,9 +8,8 @@ class @Question
 		this.el = $('#Question')
 		this.text = $('#QuestionText')
 
-		this.onEnter()
-
-	onEnter: ->
+	appear: ->
+		###
 		this.el.animate(
 			opacity: "1"
 		,
@@ -18,6 +17,8 @@ class @Question
 			duration: 1100
 		).transition
 			y: "50", duration: 900, easing: 'easeOutQuart'
+
+		###
 
 
 	onNoTextOnIntention: ->	
@@ -29,12 +30,26 @@ class @Question
 		)
 
 
-	onIntentionSet: ->	
+	onIntentionSet: ->
+		
+		this.text.text('My intention for today is...')
+		this.el.animate(
+			opacity: "1"
+		,
+			queue: false
+			duration: 1100
+		).transition(
+			scale: 0.5
+		,
+			duration: 1100
+			queue: false
+		).transition
+			y: "-180", duration: 900, easing: 'easeOutQuart'
 
 	onStartWriting: ->
 		this.text.text('My intention for today is...')
 		this.el.animate(
 			opacity: "0.3"
 		,
-			duration: 800
+			duration: 300
 		)
