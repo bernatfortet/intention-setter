@@ -3,9 +3,11 @@ class @Database
 	listLoaded: false
 	currentIntention: null
 
+	intentionsList: {}
+
 
 	today: null
-	dayStartSleepHour: 3
+	dayStartSleepHour: 2
 	dayEndSleepHour: 5
 
 	constructor: ->
@@ -14,14 +16,21 @@ class @Database
 		this.today = moment()
 
 	checkIfThereIsIntentionAndGetIt: ->
-		storedIntention = localStorage.getItem( 'current_intention' )
+		storedIntentions = localStorage.getItem( 'intentions' )
 
-		if( storedIntention? )
-			this.setIntention( JSON.parse(storedIntention) )
-		else
-			this.getIntentions()
+		if( storedIntentions? )
+			this.parseLocalStorageIntentions( storedIntentions )
+		#else
+		#	this.getMongoIntentions()
 
-	getIntentions: -> 
+	parseLocalStorageIntentions: ( storedIntentions )->
+
+		this.intentionsList = JSON.parse(storedIntentions)
+
+		lastIntention = this.getLatestIntention( this.intentionsList )
+		this.parseIntention( lastIntention )
+
+	getMongoIntentions: -> 
 		this.mongoDB.listDocuments "intentions", "intentions", { s:'{"_id": -1}' }, (intentions) => #, l: '1'
 
 			this.intentionsList = intentions
@@ -35,8 +44,6 @@ class @Database
 	parseIntention: ( intention ) ->
 		if( this.dateIsBetweenTodaysAwakeHours( intention.time ) )
 			this.setIntention( intention )
-
-
 
 
 	setIntention: ( intention ) ->
@@ -53,7 +60,22 @@ class @Database
 	
 	addIntention: ( intention ) ->
 		#use a Json Object
-		this.mongoDB.insertDocuments "intentions", "intentions", intention, (data) =>
-			console.log "Insert Documents : ", data
+		#this.mongoDB.insertDocuments "intentions", "intentions", intention, (data) =>
+			#console.log "Insert Documents : ", data
 
-		localStorage.setItem( 'current_intention', JSON.stringify(intention) );
+		this.intentionsList[intention.time] = intention
+
+		localStorage.setItem( 'intentions', JSON.stringify(this.intentionsList) );
+
+
+
+	# Tools #######
+
+
+	getLatestIntention: ( intentions ) ->
+		latest = null
+		for key, intention of intentions
+			if( key > latest )
+				latest = key
+
+		return intentions[latest]

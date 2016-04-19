@@ -39,10 +39,10 @@
       }));
       return this.input.on('keyup', function() {
         if (_this.input.val().length > 0) {
-          app.question.onStartWriting();
+          $('body').trigger('StartWriting');
         }
         if (_this.input.val() === '') {
-          return app.question.onNoTextOnIntention();
+          return $('body').trigger('NoTextOnIntention');
         }
       });
     };
@@ -60,7 +60,8 @@
         duration: 2500,
         easing: 'easeOutQuart'
       });
-      return app.background.setBackground(intention.image_url);
+      app.background.setBackground(intention.image_url);
+      return $('body').trigger('IntentionSet');
     };
 
     Intention.prototype.captureIntention = function() {

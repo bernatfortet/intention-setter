@@ -8,6 +8,14 @@ class @Question
 		this.el = $('#Question')
 		this.text = $('#QuestionText')
 
+		this.setListeners()
+
+	setListeners: ->
+
+		$('body').on('IntentionSet', this.onIntentionSet )
+		$('body').on('NoTextOnIntention', this.onNoTextOnIntention )
+		$('body').on('StartWriting', this.onStartWriting )
+
 	appear: ->
 		###
 		this.el.animate(
@@ -21,7 +29,7 @@ class @Question
 		###
 
 
-	onNoTextOnIntention: ->	
+	onNoTextOnIntention: =>	
 		this.text.text("What's your intention for today?")
 		this.el.animate(
 			opacity: "1"
@@ -29,10 +37,20 @@ class @Question
 			duration: 800
 		)
 
+	onStartWriting: =>
+		this.text.text('My intention for today is...')
+		this.el.animate(
+			opacity: "0.3"
+		,
+			duration: 300
+		)
 
-	onIntentionSet: ->
+	onIntentionSet: =>
 		
 		this.text.text('My intention for today is...')
+
+		move( '#Question' ).set('opacity',1).scale(0.5).translate(0,-180).duration(1100).end()
+		###
 		this.el.animate(
 			opacity: "1"
 		,
@@ -46,10 +64,4 @@ class @Question
 		).transition
 			y: "-180", duration: 900, easing: 'easeOutQuart'
 
-	onStartWriting: ->
-		this.text.text('My intention for today is...')
-		this.el.animate(
-			opacity: "0.3"
-		,
-			duration: 300
-		)
+			###

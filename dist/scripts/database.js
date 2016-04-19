@@ -4,9 +4,11 @@
 
     Database.prototype.currentIntention = null;
 
+    Database.prototype.intentionsList = {};
+
     Database.prototype.today = null;
 
-    Database.prototype.dayStartSleepHour = 3;
+    Database.prototype.dayStartSleepHour = 2;
 
     Database.prototype.dayEndSleepHour = 5;
 
@@ -16,16 +18,21 @@
     }
 
     Database.prototype.checkIfThereIsIntentionAndGetIt = function() {
-      var storedIntention;
-      storedIntention = localStorage.getItem('current_intention');
-      if ((storedIntention != null)) {
-        return this.setIntention(JSON.parse(storedIntention));
-      } else {
-        return this.getIntentions();
+      var storedIntentions;
+      storedIntentions = localStorage.getItem('intentions');
+      if ((storedIntentions != null)) {
+        return this.parseLocalStorageIntentions(storedIntentions);
       }
     };
 
-    Database.prototype.getIntentions = function() {
+    Database.prototype.parseLocalStorageIntentions = function(storedIntentions) {
+      var lastIntention;
+      this.intentionsList = JSON.parse(storedIntentions);
+      lastIntention = this.getLatestIntention(this.intentionsList);
+      return this.parseIntention(lastIntention);
+    };
+
+    Database.prototype.getMongoIntentions = function() {
       var _this = this;
       return this.mongoDB.listDocuments("intentions", "intentions", {
         s: '{"_id": -1}'
@@ -66,11 +73,20 @@
     };
 
     Database.prototype.addIntention = function(intention) {
-      var _this = this;
-      this.mongoDB.insertDocuments("intentions", "intentions", intention, function(data) {
-        return console.log("Insert Documents : ", data);
-      });
-      return localStorage.setItem('current_intention', JSON.stringify(intention));
+      this.intentionsList[intention.time] = intention;
+      return localStorage.setItem('intentions', JSON.stringify(this.intentionsList));
+    };
+
+    Database.prototype.getLatestIntention = function(intentions) {
+      var intention, key, latest;
+      latest = null;
+      for (key in intentions) {
+        intention = intentions[key];
+        if (key > latest) {
+          latest = key;
+        }
+      }
+      return intentions[latest];
     };
 
     return Database;

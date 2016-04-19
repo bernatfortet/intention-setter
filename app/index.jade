@@ -31,6 +31,9 @@ html(lange="en")
 			input.input#IntentionInput( autofocus, placeholder='— Enjoy flying through the air.')
 
 		.controls#Controls
+			.random-image#RandomizeImage
+				.icon
+				span.text Randomize Image
 			.add-image#AddImageButton
 				.icon#AddImageIcon( state="click" )
 				.text#AddImageText Use image from url
@@ -54,6 +57,7 @@ html(lange="en")
 			script( src="scripts/lib/jquery-ui.min.js" )
 			script( src="scripts/lib/jquery.transit.min.js" )
 			script( src="scripts/lib/jwerty.js" )
+			script( src="scripts/lib/move.min.js" )
 			script( src="scripts/lib/mongolab.js" )
 			script( src="scripts/lib/moment.min.js" )
 			script( src="scripts/lib/autogrow.js" )

@@ -35,9 +35,9 @@ class @Intention
 
 		this.input.on('keyup', =>
 			if( this.input.val().length > 0 )
-				app.question.onStartWriting()
+				$('body').trigger('StartWriting')
 			if( this.input.val() == '')
-				app.question.onNoTextOnIntention()
+				$('body').trigger('NoTextOnIntention')
 		)
 
 	setIntention: ( intention ) ->
@@ -52,6 +52,8 @@ class @Intention
 
 		$('#IntentionText').transition( y: -intentionSetDivPosition, duration: 2500, easing: 'easeOutQuart' )
 		app.background.setBackground( intention.image_url )
+
+		$('body').trigger('IntentionSet')
 
 
 	captureIntention: =>

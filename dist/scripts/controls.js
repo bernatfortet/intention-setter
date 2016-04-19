@@ -12,6 +12,7 @@
       this.input = $('#AddImageInput');
       this.icon = $('#AddImageIcon');
       this.button = $('#AddImageButton');
+      this.randomizeImage = $('#RandomizeImage');
       this.setListeners();
     }
 
@@ -30,6 +31,9 @@
 
     Controls.prototype.setListeners = function() {
       var _this = this;
+      this.randomizeImage.on('click', function() {
+        return $('body').trigger('RandomizeBackground');
+      });
       this.button.on('click', function() {
         if (_this.state === 'remove') {
           console.log('asdf');

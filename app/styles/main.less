@@ -25,7 +25,7 @@ body{ background-color:lighten(black, 10%); .lato; .fs(14px, 24px); color:white;
 	.text{ .lato; .fs(45px); font-weight:100; color:white; .tcenter; }
 }
 
-.intention{ width:60%; height:80px; .abs; left:50%; top:40%; margin-left:-30%; margin-bottom:-40px; .op(0);
+.intention{ width:70%; height:80px; .abs; left:50%; top:40%; margin-left:-35%; margin-bottom:-40px; .op(0);
 
 	.intentionStyle{ .ptserif; .fs(45px); color:white; font-style:italic; .ts(1px 1px 0px fade(black,10%)); .tcenter;}
 	
@@ -41,8 +41,13 @@ body{ background-color:lighten(black, 10%); .lato; .fs(14px, 24px); color:white;
 
 // Extra elements --------
 .controls{ .fixed; bottom:-15px; right:0; .op(0);
-	.add-image{ padding:10px 50px 25px 10px; .op(0.5); .anim; .anchor; .overflow;
+	> div { .rel; .fl; padding:10px 50px 25px 10px; .op(0.5); .anim; .anchor; .overflow; 
 		&:hover{ .op(1); .anim; }
+	}
+	.random-image{
+		span{ .fl; }
+	}
+	.add-image{		
 		.icon{ width:20px; height:20px; .fl; .rel; top:0px; margin-right:8px; 
 			&[state="click"]{ background-image:url('../images/add-image.png'); }
 			&[state="remove"]{ top:2px; background-image:url('../images/remove-image.png'); .bg-size(70%);}

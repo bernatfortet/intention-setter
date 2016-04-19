@@ -13,6 +13,7 @@ class @Controls
 		this.input = $('#AddImageInput')
 		this.icon = $('#AddImageIcon')
 		this.button = $('#AddImageButton')
+		this.randomizeImage = $('#RandomizeImage')
 
 		this.setListeners()
 
@@ -28,6 +29,13 @@ class @Controls
 
 
 	setListeners: ->
+
+
+		this.randomizeImage.on('click', =>
+			$('body').trigger('RandomizeBackground')
+		)
+
+
 		this.button.on('click', =>
 
 			if( this.state == 'remove')
